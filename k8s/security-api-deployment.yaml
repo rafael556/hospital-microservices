@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: Security API
+  labels:
+    app: security-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: security-api
+  template:
+    metadata:
+      labels:
+        app: security-api
+    spec:
+      containers:
+      - name: security-api
+        image: Enter containers image

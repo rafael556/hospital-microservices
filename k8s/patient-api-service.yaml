@@ -1,0 +1,12 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: patient-api-service
+spec:
+  selector:
+    app:  patient-api
+  type:  NodePort
+  ports:
+  - name:  http
+    port:  8083
+    targetPort:  8083
