@@ -1,0 +1,105 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{.Release.Name}}-exam-api
+  labels:
+    app: {{.Release.Name}}-exam-api
+spec:
+  replicas: {{.Values.application.exam.replicas}}
+  selector:
+    matchLabels:
+      app: {{.Release.Name}}-exam-api
+  template:
+    metadata:
+      labels:
+        app: {{.Release.Name}}-exam-api
+    spec:
+      containers:
+      - name: exam-api
+        image: {{.Values.application.exam.image.name}}:{{ .Values.application.exam.image.tag }}
+        ports:
+          - containerPorts: 8084
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{.Release.Name}}-patient-api
+  labels:
+    app: {{.Release.Name}}-patient-api
+spec:
+  replicas: {{.Values.application.patient.replicas}}
+  selector:
+    matchLabels:
+      app: {{.Release.Name}}-patient-api
+  template:
+    metadata:
+      labels:
+        app: {{.Release.Name}}-patient-api
+    spec:
+      containers:
+      - name: patient-api
+        image: {{.Values.application.patient.image.name}}:{{ .Values.application.patient.image.tag }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{.Release.Name}}-react-app
+  labels:
+    app: {{.Release.Name}}-react-app
+spec:
+  replicas: {{.Values.application.react.replicas}}
+  selector:
+    matchLabels:
+      app: {{.Release.Name}}-react-app
+  template:
+    metadata:
+      labels:
+        app: {{.Release.Name}}-react-app
+    spec:
+      containers:
+      - name: react-app
+        image: {{.Values.application.react.image.name}}:{{ .Values.application.react.image.tag }}
+        ports:
+        - containerPort: 3000
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{.Release.Name}}-security-api
+  labels:
+    app: {{.Release.Name}}-security-api
+spec:
+  replicas: {{.Values.application.security.replicas}}
+  selector:
+    matchLabels:
+      app: {{.Release.Name}}-security-api
+  template:
+    metadata:
+      labels:
+        app: {{.Release.Name}}-security-api
+    spec:
+      containers:
+      - name: security-api
+        image: {{.Values.application.security.image.name}}:{{ .Values.application.security.image.tag }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{.Release.Name}}-surgery-api
+  labels:
+    app: {{.Release.Name}}-surgery-api
+spec:
+  replicas: {{.Values.application.security.replicas}}
+  selector:
+    matchLabels:
+      app: {{.Release.Name}}-surgery-api
+  template:
+    metadata:
+      labels:
+        app: {{.Release.Name}}-surgery-api
+    spec:
+      containers:
+      - name: surgery-api
+        image: {{.Values.application.surgery.image.name}}:{{ .Values.application.surgery.image.tag }}
+---

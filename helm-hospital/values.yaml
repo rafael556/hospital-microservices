@@ -1,0 +1,27 @@
+application:
+  replicas: 1
+  exam:
+    replicas: 1
+    image: 
+      name: exam-api
+      tag: latest
+  patient:
+    replicas: 1
+    image: 
+      name: patient-api
+      tag: latest
+  react:
+    replicas: 1
+    image: 
+      name: react-app
+      tag: latest
+  security:
+    replicas: 1
+    image: 
+      name: security-api
+      tag: latest
+  surgery:
+    replicas: 1
+    image: 
+      name: surgery-api
+      tag: latest
