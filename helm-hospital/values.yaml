@@ -25,3 +25,19 @@ application:
     image: 
       name: surgery-api
       tag: latest
+
+prometheus:
+  service:
+    type: NodePort
+  alertmanager:
+    enabled: false
+
+  pushgateway:
+    enabled: false
+
+  nodeExporter:
+    enabled: true
+
+grafana:
+  service:
+    type: NodePort
