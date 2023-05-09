@@ -12,6 +12,10 @@ spec:
       app: {{.Release.Name}}-exam-api
   template:
     metadata:
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/path: /metrics
+        prometheus.io/port: "8084"
       labels:
         app: {{.Release.Name}}-exam-api
     spec:
@@ -19,7 +23,7 @@ spec:
       - name: exam-api
         image: {{.Values.application.exam.image.name}}:{{ .Values.application.exam.image.tag }}
         ports:
-          - containerPorts: 8084
+          - containerPort: 8084
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -34,12 +38,18 @@ spec:
       app: {{.Release.Name}}-patient-api
   template:
     metadata:
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/path: /metrics
+        prometheus.io/port: "8083"
       labels:
         app: {{.Release.Name}}-patient-api
     spec:
       containers:
       - name: patient-api
         image: {{.Values.application.patient.image.name}}:{{ .Values.application.patient.image.tag }}
+        ports:
+          - containerPort: 8083
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -61,7 +71,7 @@ spec:
       - name: react-app
         image: {{.Values.application.react.image.name}}:{{ .Values.application.react.image.tag }}
         ports:
-        - containerPort: 3000
+          - containerPort: 3000
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -76,12 +86,18 @@ spec:
       app: {{.Release.Name}}-security-api
   template:
     metadata:
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/path: /metrics
+        prometheus.io/port: "8081"
       labels:
         app: {{.Release.Name}}-security-api
     spec:
       containers:
       - name: security-api
         image: {{.Values.application.security.image.name}}:{{ .Values.application.security.image.tag }}
+        ports:
+          - containerPort: 8081
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -89,6 +105,7 @@ metadata:
   name: {{.Release.Name}}-surgery-api
   labels:
     app: {{.Release.Name}}-surgery-api
+    prometheus: "true"
 spec:
   replicas: {{.Values.application.security.replicas}}
   selector:
@@ -96,10 +113,17 @@ spec:
       app: {{.Release.Name}}-surgery-api
   template:
     metadata:
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/path: /metrics
+        prometheus.io/port: "8082"    
       labels:
         app: {{.Release.Name}}-surgery-api
+        prometheus: "true"
     spec:
       containers:
       - name: surgery-api
         image: {{.Values.application.surgery.image.name}}:{{ .Values.application.surgery.image.tag }}
+        ports:
+          - containerPort: 8082
 ---
